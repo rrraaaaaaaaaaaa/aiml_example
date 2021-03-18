@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+ 
+//Greeting from the users
+  <category>
+      <pattern># HELLO #</pattern>
+      <template><srai>HELLORESPONSE</srai></template>
+  </category>
+  <category>
+      <pattern># HI #</pattern>
+      <template><srai>HELLORESPONSE</srai></template>
+  </category>
+  <category>
+      <pattern># GOOD MORNING #</pattern>
+      <template><srai>HELLORESPONSE</srai></template>
+  </category>
+  <category>
+    <pattern>HELLORESPONSE</pattern>
+    <template>
+        <random>
+            <li> Hi. You could enter a country name. </li>
+            <li> Hi. Ask me something about COVID-19.</li>
+            <li>Hi. I am a chatbot that could provide some information about COVID-19. </li>
+        </random>
+        </template>
+  </category>
+  
+  //positive responses
+  <category>
+      <pattern>OK</pattern>
+      <template>
+          <random>
+              <li>You could ask me about total cases in the world.</li>
+              <li>You could ask me about the confirmed cases in a country. Try it.</li>
+          </random>
+      </template>
+  </category>
+  
+    <category>
+      <pattern>WHAT CAN YOU PROVIDE</pattern>
+      <template><srai>OK</srai></template>
+  </category>
+  
+  <category>
+      <pattern>ALRIGHT</pattern>
+      <template><srai>OK</srai></template>
+  </category>
+  
+  <category>
+      <pattern>YES</pattern>
+      <template><srai>OK</srai></template>
+  </category>
+  
+  
+  //asking about prevention
+  <category>
+      <pattern># PREVENTION #</pattern>
+      <template>
+          You could wash your hands frequently, as the example showing below.
+          <link>
+              <text>Clean hands protect against infection.</text>
+              <url>https://www.who.int/gpsc/clean_hands_protection/en/</url>
+          </link>
+      </template>
+  </category>
+  
+  <category>
+      <pattern>HOW COULD I PREVENT FROM CATCHING THE VIRUS</pattern>
+      <template><srai># PREVENTION #</srai></template>
+  </category>
+  
+  <category>
+      <pattern># PROTECTION #</pattern>
+      <template><srai># PREVENTION #</srai></template>
+  </category>
+  
+  
+  //couldn't understand
+  <category>
+      <pattern> * </pattern>
+      <template> I couldn't understand about it. Maybe you could check the websites below.
+      <link>
+          <text>World Health Organization : COVID-19</text>
+          <url>https://www.who.int/emergencies/diseases/novel-coronavirus-2019</url>
+      </link>
+      <link>
+          <text>Johns Hopkins Coronavirus Resource Center</text>
+          <url>https://coronavirus.jhu.edu/map.html</url>
+       </link>
+      </template>
+  </category>
+  
+  //No
+  <category>
+      <pattern>NO</pattern>
+      <template>Thank you. Have a nice day.</template>
+  </category>
+  
+  
+  //country name
+ <category>
+     <pattern><set>nations</set></pattern>
+     <template>
+         <think><set name = "askedcountry"><star/></set></think>
+         <star/> has more than 100 confirmed cases. It is dangerous.
+     </template>
+ </category>
+ <category>
+     <pattern><set>nationsunder100</set></pattern>
+     <template>
+         <think><set name = "askedcountry"><star/></set></think>
+         <star/> has less than 100 confirmed cases. It is relatively safe.
+     </template>
+ </category>
+
+ 
+ //cases in a country
+ <category>
+     <pattern># CASES #</pattern>
+     <that>IT IS DANGEROUS</that>
+     <template>
+       <map name = "nationscases"><get name = "askedcountry"/></map> .
+       Anything else you want to know ?
+     </template>
+ </category>
+ 
+  <category>
+     <pattern># CASES #</pattern>
+     <that>IT IS RELATIVELY SAFE</that>
+     <template>
+       <map name = "nationscases"><get name = "askedcountry"/></map> .
+       Anything else you want to know ?
+     </template>
+ </category>
+ 
+ <category>
+    <pattern>$HOW MANY CASES IN <set>nations</set></pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationscases"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+
+ <category>
+    <pattern>$HOW MANY CONFIRMED CASES IN <set>nations</set></pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationscases"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+
+<category>
+    <pattern>$CASES IN <set>nations</set></pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationscases"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+ 
+
+//cases in the world
+<category>
+    <pattern># CASES #</pattern>
+    <template>Total confirmed cases in the world is 275434. Anything else you want to know ?</template>
+</category>
+
+//deaths in a country
+<category>
+    <pattern># DEATHS #</pattern>
+    <that>IT IS DANGEROUS</that>
+    <template>
+        <map name = "nationsdeaths"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+<category>
+    <pattern># DEATHS #</pattern>
+    <that>IT IS RELATIVELY SAFE</that>
+    <template>
+        <map name = "nationsdeaths"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+<category>
+    <pattern>$HOW MANY DEATHS IN <set>nations</set></pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationsdeaths"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+<category>
+    <pattern>$HOW MANY DEATHS IN <set>nations</set> ?</pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationsdeaths"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+<category>
+    <pattern>$DEATHS IN <set>nations</set></pattern>
+    <template>
+        <think><set name = "askedcountry"><star/></set></think>
+        <map name = "nationsdeaths"><get name = "askedcountry"/></map> .
+        Anything else you want to know ?
+    </template>
+</category>
+
+//deaths in the world
+<category>
+    <pattern># DEATHS #</pattern>
+    <template>Total deaths in the world is 11423. Anything else you want to know ?</template>
+</category>
+
+</aiml>
